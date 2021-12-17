@@ -24,7 +24,12 @@ if ($_FILES) { // Verificando se existe o envio de arquivos.
         preg_match_all('/\.[a-zA-Z0-9]+/', $name, $extensao);
         if (!in_array(strtolower(current(end($extensao))), array('.txt', '.pdf', '.doc', '.xls', '.xlms'))) {
             echo('Permitido apenas arquivos doc,xls,pdf e txt.');
-            header("location: ../chat.php");
+            
+            die;
+        }
+        if (file_exists($dir.$name)) {
+            echo('já existe um ficheiro com este nome.');
+         
             die;
         }
         $result = mysqli_connect($hostname, $username, $password) or die("Erro de ligacao ao servidor: " . mysqli_error());
